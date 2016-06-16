@@ -63,11 +63,10 @@ class Rencontre
      */
     private $scoreB;
 
-
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -90,7 +89,7 @@ class Rencontre
     /**
      * Get date
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDate()
     {
@@ -113,7 +112,7 @@ class Rencontre
     /**
      * Get libelle
      *
-     * @return string 
+     * @return string
      */
     public function getLibelle()
     {
@@ -136,7 +135,7 @@ class Rencontre
     /**
      * Get equipeA
      *
-     * @return string 
+     * @return string
      */
     public function getEquipeA()
     {
@@ -159,7 +158,7 @@ class Rencontre
     /**
      * Get equipeB
      *
-     * @return string 
+     * @return string
      */
     public function getEquipeB()
     {
@@ -182,7 +181,7 @@ class Rencontre
     /**
      * Get scoreA
      *
-     * @return integer 
+     * @return integer
      */
     public function getScoreA()
     {
@@ -205,7 +204,7 @@ class Rencontre
     /**
      * Get scoreB
      *
-     * @return string 
+     * @return string
      */
     public function getScoreB()
     {
