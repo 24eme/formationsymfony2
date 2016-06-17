@@ -1,0 +1,106 @@
+---
+- name: "Configuration du source list"
+  copy: src={{project_folder}}/ansible/files/sources.list dest=/etc/apt/sources.list remote_src=yes
+
+- name: "modules debian installés"
+  apt: name={{item}} state=latest update_cache=yes
+  become: yes
+  with_items:
+  - iceweasel
+  - iceweasel-l10n-fr
+  - vim
+  - curl
+  - apache2
+  - libapache2-mod-php5
+  - php5-intl
+  - php5-mysql
+  - mysql-server
+  - phpmyadmin
+  - sudo
+  - git
+  - recode
+  - rsync
+  - python-mysqldb
+
+- name: "bonne version git"
+  git: repo=https://github.com/24eme/formationsymfony2.git
+    dest={{ project_folder }}
+    update=yes clone=yes version=master remote=master
+
+- name: "cache and log created"
+  become: yes
+  file: path={{symfony_folder}}/{{item}} state=directory
+  with_items:
+  - app/cache
+  - app/logs
+
+- name: Set cache folder permissions
+  become: yes
+  shell: >
+    setfacl -R -m u:www-data:rwX -m u:{{ user }}:rwX {{symfony_folder}}/app/cache {{symfony_folder}}/app/logs
+    setfacl -dR -m u:www-data:rwX -m u:{{ user }}:rwX {{symfony_folder}}/app/cache {{symfony_folder}}/app/logs
+
+- name: "Configuration php apache2 datetimezone"
+  become: yes
+  ini_file: dest=/etc/php5/apache2/php.ini section=Date option=date.timezone value=Europe/Paris
+
+- name: "Configuration php cli datetimezone"
+  become: yes
+  ini_file: dest=/etc/php5/cli/php.ini section=Date option=date.timezone value=Europe/Paris
+
+- name: install composer
+  become: yes
+  shell: curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin creates=/usr/local/bin/composer
+
+- name: rename composer.phar to composer
+  become: yes
+  shell: mv /usr/local/bin/composer.phar /usr/local/bin/composer creates=/usr/local/bin/composer
+
+- name: make composer executable
+  become: yes
+  file: path=/usr/local/bin/composer mode=a+x state=file
+
+- name: "installation du projet via composer"
+  composer: command=install no_scripts="yes" no_dev="no" working_dir={{symfony_folder}}
+
+- name: "creation du fichier de parameters.yml"
+  copy: src={{symfony_folder}}/app/config/parameters.yml.dist dest={{symfony_folder}}/app/config/parameters.yml remote_src=yes
+
+- name: mysql est démarré
+  become: yes
+  service: name=mysql state=started
+
+- name: configuration de mysql
+  become: yes
+  mysql_user: name={{ user }} host=127.0.0.1 password={{ mysql_root_pass }} priv=*.*:ALL,GRANT
+
+- name: Add default username and password for MySQL connection.
+  lineinfile: >
+    dest=/etc/phpmyadmin/config.inc.php
+    state=present
+    regexp="^.+\['{{ item.key }}'\].+$"
+    line="$cfg['Servers'][$i]['{{ item.key }}'] = '{{ item.value }}';"
+    insertbefore="^\?>"
+  with_items:
+  - { key: host, value: "127.0.0.1" }
+  - { key: port, value: "3306" }
+  - { key: user, value: "{{ user }}" }
+  - { key: password, value: "{{ mysql_root_pass }}"}
+
+
+- name: "Configuration apache"
+  template: src=apache.conf.j2 dest=/etc/apache2/sites-available/000-default.conf
+  become: yes
+  notify: reload apache
+
+- name: "Apache modules"
+  become: yes
+  apache2_module: state=present name={{item}}
+  with_items:
+   - rewrite
+   - vhost_alias
+  notify: reload apache
+#
+# - name: "Create virtualhost"
+#   become: yes
+#   file: path=/home/www/{{ server_name }} state=link src={{symfony_folder}}/web
