@@ -1,9 +1,7 @@
 ---
-- name: "Configuration du source list"
-  copy: src={{project_folder}}/ansible/files/sources.list dest=/etc/apt/sources.list remote_src=yes
 
 - name: "modules debian installés"
-  apt: name={{item}} state=latest update_cache=yes
+  apt: name={{item}} state=latest update_cache=yes force=yes
   become: yes
   with_items:
   - iceweasel
@@ -12,7 +10,6 @@
   - curl
   - apache2
   - libapache2-mod-php5
-  - php5-intl
   - php5-mysql
   - mysql-server
   - phpmyadmin
@@ -20,7 +17,14 @@
   - git
   - recode
   - rsync
-  - python-mysqldb
+  - gvfs-bin
+
+- name: Téléchargement python-mysqldb
+  get_url: url=http://ftp.fr.debian.org/debian/pool/main/p/python-mysqldb/python-mysqldb_1.2.3-2.1_amd64.deb dest=/tmp/python-mysqldb_1.2.3-2.1_amd64.deb
+
+- name: Installation python-mysqldb
+  apt: deb="/tmp/python-mysqldb_1.2.3-2.1_amd64.deb"
+  become: yes
 
 - name: "bonne version git"
   git: repo=https://github.com/24eme/formationsymfony2.git
@@ -63,18 +67,16 @@
 - name: "installation du projet via composer"
   composer: command=install no_scripts="yes" no_dev="no" working_dir={{symfony_folder}}
 
-- name: "creation du fichier de parameters.yml"
-  copy: src={{symfony_folder}}/app/config/parameters.yml.dist dest={{symfony_folder}}/app/config/parameters.yml remote_src=yes
-
 - name: mysql est démarré
   become: yes
   service: name=mysql state=started
 
 - name: configuration de mysql
   become: yes
-  mysql_user: name={{ user }} host=127.0.0.1 password={{ mysql_root_pass }} priv=*.*:ALL,GRANT
+  mysql_user: name={{ user }} host=localhost password={{ mysql_root_pass }} priv=*.*:ALL,GRANT
 
 - name: Add default username and password for MySQL connection.
+  become: yes
   lineinfile: >
     dest=/etc/phpmyadmin/config.inc.php
     state=present
@@ -82,11 +84,10 @@
     line="$cfg['Servers'][$i]['{{ item.key }}'] = '{{ item.value }}';"
     insertbefore="^\?>"
   with_items:
-  - { key: host, value: "127.0.0.1" }
+  - { key: host, value: "localhost" }
   - { key: port, value: "3306" }
   - { key: user, value: "{{ user }}" }
   - { key: password, value: "{{ mysql_root_pass }}"}
-
 
 - name: "Configuration apache"
   template: src=apache.conf.j2 dest=/etc/apache2/sites-available/000-default.conf
@@ -100,7 +101,16 @@
    - rewrite
    - vhost_alias
   notify: reload apache
-#
-# - name: "Create virtualhost"
-#   become: yes
-#   file: path=/home/www/{{ server_name }} state=link src={{symfony_folder}}/web
+
+- name: "Configuration symfony"
+  template: src=parameters.yml.j2 dest={{ symfony_folder }}/app/config/parameters.yml
+
+- name: "Chargement des données initiales en base de données"
+  shell: cd {{ symfony_folder }}; php app/console cache:clear; php app/console cache:clear --env=prod; php app/console doctrine:database:create; php app/console doctrine:schema:update --force; php app/console doctrine:fixtures:load -n;
+
+- name: Téléchargement atomeditor
+  get_url: url=https://atom.io/download/deb dest=/tmp/atomeditor.deb
+
+- name: Installation atomeditor
+  apt: deb="/tmp/atomeditor.deb"
+  become: yes
