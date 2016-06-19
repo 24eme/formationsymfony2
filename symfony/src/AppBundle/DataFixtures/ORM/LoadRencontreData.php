@@ -31,8 +31,8 @@ class LoadRencontreData implements FixtureInterface, ContainerAwareInterface
             $rencontre->setLibelle($data[1]);
             $rencontre->setEquipeA($data[2]);
             $rencontre->setEquipeB($data[3]);
-            $rencontre->setScoreA($data[4]);
-            $rencontre->setScoreB($data[5]);
+            $rencontre->setScoreA(($data[4] !== "") ? $data[4] : null);
+            $rencontre->setScoreB(($data[5] !== "") ? $data[5] : null);
             $manager->persist($rencontre);
         }
 

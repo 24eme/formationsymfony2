@@ -59,7 +59,7 @@ class Rencontre
     /**
      * @var string
      *
-     * @ORM\Column(name="scoreB", nullable=true, type="string", length=255)
+     * @ORM\Column(name="scoreB", nullable=true, type="integer")
      */
     private $scoreB;
 
