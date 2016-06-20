@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<h2>Matchs de l'équipe : {{ nom }}</h2>
+
+{% include 'rencontre/list.html.twig' with {'items': rencontres} only %}
+
+{% endblock %}

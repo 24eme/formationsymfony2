@@ -12,4 +12,34 @@ use Doctrine\ORM\EntityRepository;
  */
 class RencontreRepository extends EntityRepository
 {
+
+    public function getRencontresByEquipe($nomEquipe) {
+        $query = $this->getEntityManager()->createQuery("
+          SELECT r
+          FROM \AppBundle\Entity\Rencontre r
+          WHERE r.equipeA = :nom OR r.equipeB =:nom
+          ORDER BY r.date DESC
+        ")->setParameter('nom', $nomEquipe);
+
+        return $query->getResult();
+    }
+
+    public function getRencontresByEquipeAlt($nomEquipe) {
+        $queryBuilder = $this->createQueryBuilder('r');
+
+        $queryBuilder->select('r')
+            ->where("r.equipeA = :nom OR r.equipeB =:nom")
+            ->orderBy('r.date','DESC')
+            ->setParameter('nom', $nomEquipe);
+
+        /*$queryBuilder->select('r')
+             ->where($queryBuilder->expr()->orX(
+                        $queryBuilder->expr()->eq('r.equipeA', ':nom'),
+                        $queryBuilder->expr()->eq('r.equipeB', ':nom'))
+                    )
+            ->orderBy('r.date','DESC')
+            ->setParameter('nom', $nomEquipe);*/
+
+        return $queryBuilder->getQuery()->getResult();
+    }
 }

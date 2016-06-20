@@ -1,0 +1,26 @@
+<table class="table">
+  <tbody>
+  {% for item in items %}
+    <tr>
+      <td>{{ item.date | date('d/m/Y') }}</td>
+      <td>{{ item.libelle }}</td>
+      <td>
+        {% if item.equipeA %}
+        <a href="{{ path('rencontre_equipe', {'nom': item.equipeA }) }}">{{ item.equipeA }}</a>
+        {% else %}
+        <em class="text-muted">Suspense</em>
+        {% endif %}
+      </td>
+      <td>{{ item.scoreA }}</td>
+      <td>
+        {% if item.equipeB %}
+        <a href="{{ path('rencontre_equipe', {'nom': item.equipeB }) }}">{{ item.equipeB }}</a>
+        {% else %}
+        <em class="text-muted">Suspense</em>
+        {% endif %}
+      </td>
+      <td>{{ item.scoreB }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>

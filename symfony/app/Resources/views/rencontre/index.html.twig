@@ -1,0 +1,7 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+{% include 'rencontre/list.html.twig' with {'items': rencontres} only %}
+
+{% endblock %}
