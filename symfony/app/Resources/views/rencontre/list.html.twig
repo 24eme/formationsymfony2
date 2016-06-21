@@ -20,6 +20,7 @@
         {% endif %}
       </td>
       <td>{{ item.scoreB }}</td>
+      <td><a class="btn btn-xs btn-default" href="{{ path('pronostic_nouveau', {'idRencontre': item.id })}}">Pronostiquer</a></td>
     </tr>
   {% endfor %}
   </tbody>

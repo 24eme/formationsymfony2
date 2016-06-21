@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme form 'bootstrap_3_horizontal_layout.html.twig' _self %}
+
+{% block _pronostic_scoreA_row %}
+    {#{ form_widget(form, {'attr': {'placeholder': 'Score A'}}) }#}
+    {{ form_row(form) }}
+{% endblock %}
+
+{% block body %}
+<h2>Ajout d'un pronostic</h2>
+<h3>Match {{ rencontre }}</h3>
+<div class="row">
+  <div class="col-xs-8">
+    {{ form(form) }}
+  </div>
+</div>
+{% endblock %}

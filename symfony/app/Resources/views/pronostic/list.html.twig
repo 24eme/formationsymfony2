@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<table class="table table-bordered">
+  <tbody>
+{% for pronostic in pronostics %}
+    <tr>
+      <td>{{ pronostic.rencontre.equipeA }}</td>
+      <td>{{ pronostic.rencontre.equipeB }}</td>
+      <td>{{ pronostic.date | date('d/m/Y') }}</td>
+      <td>{{ pronostic.utilisateur }}</td>
+      <td>{{ pronostic.scoreA }}</td>
+      <td>{{ pronostic.scoreB }}</td>
+      <td>{{ pronostic.nbCafe }}</td>
+    </tr>
+{% endfor %}
+  </tbody>
+</table>
+{% endblock %}
