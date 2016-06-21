@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+{% block body%}
+ 
+<table class ="table">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>utilisateur</th>
+      <th>match</th>
+      <th>Score A</th>
+      <th>Score B</th>
+      <th>Parier</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    {% for item in items %}
+    <tr>
+      <td>{{item.date | date("d/m/Y")}} </td>
+      <td>{{item.utilisateur}}</td>
+      <td>{{item.rencontre}}</td>
+      <td>{{item.scoreA}}</td>
+      <td>{{item.scoreB}}</td>
+      <td>{{item.nbcafe}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

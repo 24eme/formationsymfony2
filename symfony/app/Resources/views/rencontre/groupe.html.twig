@@ -1,0 +1,6 @@
+
+{% extends 'base.html.twig' %}
+{% block body%}
+<a href="">Afficher tous</a>
+{% include 'rencontre/liste.html.twig' with {'items' : items} only %}
+{% endblock %}

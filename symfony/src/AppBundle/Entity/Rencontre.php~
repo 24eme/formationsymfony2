@@ -71,12 +71,6 @@ class Rencontre
     private $scoreB;
 
     /**
-    * @var $mixed
-    * @ORM\OneToMany(targetEntity="pronostic", mappedBy="rencontre" )
-    */
-    private $pronostics;
-
-    /**
      * Get id
      *
      * @return integer
@@ -222,8 +216,5 @@ class Rencontre
     public function getScoreB()
     {
         return $this->scoreB;
-    }
-    public function __toString(){
-      return  $this->getEquipeA()." vs ".$this->getEquipeB();
     }
 }

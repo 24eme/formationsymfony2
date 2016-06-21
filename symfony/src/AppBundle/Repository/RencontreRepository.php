@@ -12,4 +12,12 @@ use Doctrine\ORM\EntityRepository;
  */
 class RencontreRepository extends EntityRepository
 {
+  public function getRencotresByEquipe($nomEquipe){
+    $query= $this->getEntityManager()->createQuery("
+        SELECT r
+        FROM \AppBundle\Entity\Rencontre r
+        WHERE r.equipeA=:nom OR r.equipeB =:nom
+    ")->setParameter('nom',$nomEquipe);
+    return $query->getResult();
+  }
 }

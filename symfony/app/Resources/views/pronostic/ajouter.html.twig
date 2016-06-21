@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+{% block body%}
+
+
+{% form_theme form 'bootstrap_3_layout.html.twig' _self %}
+  {{form_start(form ) }}
+    {{form_errors(form)}}
+
+
+
+    <div>
+        {{ form_label(form.utilisateur) }}
+        {{ form_errors(form.utilisateur) }}
+        {{ form_widget(form.utilisateur) }}
+    </div>
+    <div>
+        {{ form_label(form.scoreA) }}
+        {{ form_errors(form.scoreA) }}
+        {{ form_widget(form.scoreA) }}
+    </div>
+    <div>
+        {{ form_label(form.scoreB) }}
+        {{ form_errors(form.scoreB) }}
+        {{ form_widget(form.scoreB) }}
+    </div>
+    <div>
+        {{ form_label(form.nbcafe) }}
+        {{ form_errors(form.nbcafe) }}
+        {{ form_widget(form.nbcafe) }}
+    </div>
+
+{{form_end(form)}}
+{% endblock %}

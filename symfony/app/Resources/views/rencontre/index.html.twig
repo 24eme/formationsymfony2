@@ -1,0 +1,29 @@
+
+<a href="">Afficher tous</a>
+<table class ="table">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Groupe</th>
+      <th>Equipe A</th>
+      <th>Score A</th>
+      <th>Equipe B</th>
+      <th>Score B</th>
+      <th>tt</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    {% for item in items %}
+    <tr>
+      <td>{{item.date | date("d/m/Y")}} </td>
+      <td>{{item.libelle}}  </td>
+      <td><a href="{{path("rencontre_groupe", {"groupe": item.libelle } )}}"  >{{item.libelle}} </a> </td>
+      <td><a href="{{path("rencontre_equipeA", {"equipeA": item.equipeA | default('vide')} )}}"  >{{item.equipeA}} </a></td>
+      <td>{{item.scoreA}}</td>
+      <td><a href="{{path("rencontre_equipeB", {"equipeB": item.equipeB | default('vide')} )}}"  >{{item.equipeB}} </a></td>
+      <td class='btn btn-default ' ><a href="{{path("Pronostic_ajouter", {"idRencontre":item.id})}}" >pronostiquer</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
