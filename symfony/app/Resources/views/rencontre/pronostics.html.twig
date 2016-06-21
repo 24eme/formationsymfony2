@@ -1,0 +1,22 @@
+{% extends  'base.html.twig' %}
+{% block title %}
+{% endblock %}
+{% block body %}
+<h1>
+      Pronostics de {{rencontre}} de la coupe d'Europe de football 2016
+</h1>
+<table class='table'>
+<tbody>
+{% for pronostic in pronostics %}
+  <tr>
+  <td>{{pronostic.date | date('d/m/Y')}}</td>
+  <td>{{rencontre.libelle}}</td>
+  <td>{{rencontre.equipeA}}</td>
+  <td>{{pronostic.scoreA}}</td>
+  <td>{{rencontre.equipeB}}</td>
+  <td>{{pronostic.scoreB}}</td>
+  </tr>
+{% endfor %}
+</tbody>
+</table>
+{% endblock %}

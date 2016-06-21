@@ -1,0 +1,16 @@
+<table class='table'>
+<tbody>
+{% for rencontre in rencontres %}
+  <tr>
+  <td>{{rencontre.date | date('d/m/Y')}}</td>
+  <td>{{rencontre.libelle}}</td>
+  <td>
+    {% if rencontre.equipeA %}
+    <a href = "{{ path("rencontre_equipe", {"nom" : rencontre.equipeA}) }}">{{rencontre.equipeA}}</a>
+    {% endif %}
+  </td>
+  <td>{{rencontre.equipeB}}</td>
+  </tr>
+{% endfor %}
+</tbody>
+</table>
