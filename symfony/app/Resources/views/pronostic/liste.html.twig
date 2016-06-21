@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<table class="table">
+  <thead>
+
+          <th>date</th>
+          <th>scoreA</th>
+          <th>scoreB</th>
+          <th>cafés</th>
+
+  </thead>
+  <tbody>
+  {% for item in pronostics %}
+    <tr>
+      <td>{{ item.date | date('d/m/Y') }}</td>
+      <td>{{ item.scoreA }}</td>
+      <td>{{ item.scoreB }}</td>
+      <td>{{ item.nbCafe }}</td>
+
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

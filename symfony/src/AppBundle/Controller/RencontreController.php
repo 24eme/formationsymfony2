@@ -46,12 +46,23 @@ class RencontreController extends Controller
       $rencontre = $repository->find($id);
 
       $form = $this->createForm(new RencontreType(), $rencontre);
+      //  var_dump($_POST);
+      $form->handleRequest($request);
+
+      if($form->isSubmitted() && $form->isValid())
+
+      {
+
+        $this->getDoctrine()->getManager()->flush();
+        return $this->RedirectToRoute('rencontre_modifier', array('id'=>$id));
+      }
 
       return $this->render("rencontre/modifier.html.twig",
           array('rencontre' => $rencontre,
                 'form' => $form->createView())
           );
     }
+
 
     public function getRepository()  {
       return $this->getDoctrine()->getRepository("AppBundle:Rencontre");

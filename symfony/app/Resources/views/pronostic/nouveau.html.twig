@@ -1,0 +1,17 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}AppBundle:Pronostic:nouveau{% endblock %}
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+{% block body %}
+<h1>Welcome to the Pronostic:nouveau page</h1>
+{{ form_start(form,{'attr':{'novalidate':'novalidate'}} ) }}
+
+{{ form_row(form.nbCafe) }}
+{{ form_row(form.scoreA) }}
+{{ form_row(form.scoreB) }}
+{{ form_row(form.utilisateur) }}
+
+<button type="submit" class="btn btn-default">Modifier </button>
+
+{{ form_end(form)}}
+{% endblock %}

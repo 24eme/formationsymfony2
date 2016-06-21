@@ -234,44 +234,4 @@ class Rencontre
     {
         return $this->scoreB;
     }
-      /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->pronostics = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add pronostics
-     *
-     * @param \AppBundle\Entity\Pronostic $pronostics
-     * @return Rencontre
-     */
-    public function addPronostic(\AppBundle\Entity\Pronostic $pronostics)
-    {
-        $this->pronostics[] = $pronostics;
-
-        return $this;
-    }
-
-    /**
-     * Remove pronostics
-     *
-     * @param \AppBundle\Entity\Pronostic $pronostics
-     */
-    public function removePronostic(\AppBundle\Entity\Pronostic $pronostics)
-    {
-        $this->pronostics->removeElement($pronostics);
-    }
-
-    /**
-     * Get pronostics
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getPronostics()
-    {
-        return $this->pronostics;
-    }
-}
+  }

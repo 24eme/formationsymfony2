@@ -3,7 +3,15 @@
   {% for item in items %}
     <tr>
       <td>{{ item.date | date('d/m/Y') }}</td>
-      <td>{{ item.libelle }}</td>
+      <td>
+        <a href="{{ path('rencontre_modifier', {'id': item.id }) }}">{{ item.libelle }} ,{{ item.id }} </a>
+          </td>
+            <td>
+        <a class="btn btn-default" href="{{ path('pronostic_nouveau', {'idRencontre': item.id }) }}">Pari</a>
+        </td>
+        <td>
+        <a class="btn btn-info" href="{{ path('pronostic_liste', {'idRencontre': item.id }) }}">Pronostics</a>
+      </td>
       <td>
         {% if item.equipeA %}
         <a href="{{ path('rencontre_equipe', {'nom': item.equipeA }) }}">{{ item.equipeA }}</a>

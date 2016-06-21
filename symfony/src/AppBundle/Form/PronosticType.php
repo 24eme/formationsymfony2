@@ -5,12 +5,12 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 
-class RencontreType extends AbstractType
+class PronosticType extends AbstractType
 {
+
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -18,12 +18,10 @@ class RencontreType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('date', DateType::class)
-            ->add('libelle')
-            ->add('equipeA')
-            ->add('equipeB')
-            ->add('scoreA',  TextType::class)
+            ->add('scoreA')
             ->add('scoreB')
+            ->add('nbCafe')
+            ->add('utilisateur')
         ;
     }
 
@@ -33,7 +31,8 @@ class RencontreType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Rencontre'
+            'data_class' => 'AppBundle\Entity\Pronostic'
         ));
     }
+
 }
