@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Coupe d'Europe de football 2016{% endblock %}
+
+{% block body %}
+
+    <h2>Liste des pronostics</h2>
+
+
+
+    {% if pronostics is not empty %}
+      
+        <br/>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Date du pronostic</th>
+                    <th>Utilisateur</th>
+                    <th>Score a</th>
+                    <th>Score b</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for entry in pronostics %}
+                    <tr>
+                        <td>{{entry.date | date('d/m/Y')}}</td>
+                        <td>{{entry.utilisateur}}</td>
+                        <td>{{entry.scoreA}}</td>
+                        <td>{{entry.scoreB}}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+    {% if pronostics is empty %}
+        Aucun pronostic n'a été fait pour ce match !
+    {% endif %}
+
+    <p>
+        <a href="{{ path('match_route') }}">Retour à la page de tous les matchs</a>
+    </p>
+
+{% endblock %}

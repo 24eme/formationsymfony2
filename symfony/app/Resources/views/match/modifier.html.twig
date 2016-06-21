@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+
+{% block title %}Coupe d'Europe de football 2016{% endblock %}
+
+{% block body %}
+
+    {#form(form)#}
+    <h2>Modifier le match
+        {{entry.id}}</h2>
+    {{form_start(form, {"attr":{"novalidate":"novalidate"}}  ) }}
+
+    {{form_errors(form)}}
+
+        <table >
+            <tbody>
+                <tr>
+                    <td>{{form_label(form.equipeA)}}</td>
+                    <td>{{form_label(form.scoreA)}}</td>
+                    <td>{{form_label(form.scoreB)}}</td>
+                    <td>{{form_label(form.equipeB)}}</td>
+                </tr>
+                <tr>
+                    <td>{{form_widget(form.equipeA)}}</td>
+                    <td>{{form_widget(form.scoreA)}}</td>
+                    <td>{{form_widget(form.scoreB)}}</td>
+                    <td>{{form_widget(form.equipeB)}}</td>
+                </tr>
+                <tr>
+                    <td>{{form_errors(form.equipeA)}}</td>
+                    <td>{{form_errors(form.scoreA)}}</td>
+                    <td>{{form_errors(form.scoreB)}}</td>
+                    <td>{{form_errors(form.equipeB)}}</td>
+                </tr>
+            </tody>
+        </table>
+
+        <br/>
+
+        <input type=submit class="btn btn-primary" value="Modifier"/>
+
+    {{form_end(form)}}
+
+    <br/>
+    <a href="{{ path('match_route') }}">Retour à la page de tous les matchs</a>
+
+{% endblock %}

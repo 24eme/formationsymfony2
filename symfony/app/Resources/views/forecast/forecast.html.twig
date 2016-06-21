@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+
+{% block title %}Coupe d'Europe de football 2016{% endblock %}
+
+{% block body %}
+
+    <h2>Faire un pronostic pour le match
+        {{app.request.get('idRencontre')}}
+    </h2>
+
+    <p>Date de la rencontre : {{rencontre.date | date("d/m/Y")}}</p>
+
+    <br/>
+
+    {% if rencontre.date > date() %}
+        {{form_start(form, {"attr":{"novalidate":"novalidate"}}
+        ) }}
+
+        {{form_errors(form)}}
+
+        {{form_label(form.scoreA)}}
+        {{rencontre.equipeA}}
+        {{form_widget(form.scoreA)}}
+        {{form_errors(form.scoreA)}}
+
+        <br/>
+
+        {{form_label(form.scoreB)}}
+        {{rencontre.equipeB}}
+        {{form_widget(form.scoreB)}}
+        {{form_errors(form.scoreB)}}
+
+        <br/>
+
+        {{form_label(form.nbCafes, "Nombre de cafés pariés")}}
+        {{form_widget(form.nbCafes)}}
+        {{form_errors(form.nbCafes)}}
+
+        <br/>
+
+        {{form_label(form.utilisateur)}}
+        {{form_widget(form.utilisateur)}}
+        {{form_errors(form.utilisateur)}}
+
+        <br/>
+
+        <input type=submit class="btn btn-primary" value="Pronostiquer"/>
+
+        <br/>
+        <!--p>
+    {form_label(form.rencontre) }}
+
+       {form_widget(form.rencontre)}}</p-->
+
+        {{form_end(form)}}
+    {% endif %}
+
+    {% if  not (rencontre.date > date()) %}
+      Vous ne pouvez pas faire de pronostic pour ce match car il a déjà eu lieu !
+    {% endif %}
+    <br/>
+    <a href="{{ path('match_route') }}">Retour à la page de tous les matchs</a>
+
+{% endblock %}

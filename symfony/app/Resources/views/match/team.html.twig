@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Coupe d'Europe de football 2016{% endblock %}
+
+{% block body %}
+    <h1>Matchs de l'équipe : {{team}}</h1>
+
+    <p><a href="{{ path('match_route') }}">Retour à la page de tous les matchs</a></p>
+    <br/>
+
+    {% include 'match/templateList.html.twig' with {'entries':entries} only %}
+
+
+{% endblock %}

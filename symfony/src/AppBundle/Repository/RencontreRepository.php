@@ -1,9 +1,6 @@
 <?php
-
 namespace AppBundle\Repository;
-
 use Doctrine\ORM\EntityRepository;
-
 /**
  * RencontreRepository
  *
@@ -12,4 +9,26 @@ use Doctrine\ORM\EntityRepository;
  */
 class RencontreRepository extends EntityRepository
 {
+    public function getRencontresByEquipe($nomEquipe)
+    {
+        $qb = $this->createQueryBuilder('entry');
+        $qb->select('entry')
+          ->where($qb->expr()
+                    ->orX($qb->expr()->eq('entry.equipeA', ':team'),
+                          $qb->expr()->eq('entry.equipeB', ':team'))
+                  )
+          ->orderBy('entry.date', 'ASC')
+          ->setParameter('team', $nomEquipe);
+        return $qb->getQuery()->getResult();
+    }
+    public function getRencontresByEquipeAlt($nomEquipe)
+    {
+        $query = $this->getEntityManager()
+                      ->createQuery("SELECT r
+                        FROM \AppBundle\Entity\Rencontre r
+                        WHERE r.equipeA = :nom OR r.equipeB = :nom
+                        ORDER BY r.date DESC")
+                      ->setParameter('nom', $nomEquipe);
+        return $query->getResult();
+    }
 }
