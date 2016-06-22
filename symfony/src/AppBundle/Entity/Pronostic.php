@@ -22,13 +22,6 @@ class Pronostic
     private $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="utilisateur", nullable=false, type="string", length=255)
-     */
-    private $utilisateur;
-
-    /**
      * @var int
      *
      * @ORM\Column(name="scoreA", type="integer")
@@ -63,6 +56,12 @@ class Pronostic
      */
     private $rencontre;
 
+    /**
+     * @var $id
+     *
+     * @ORM\ManyToOne(targetEntity="User")
+     */
+    private $utilisateur;
 
     /**
      * Get id

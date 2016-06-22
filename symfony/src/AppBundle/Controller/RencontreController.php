@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -11,9 +12,9 @@ use AppBundle\Form\RencontreType;
 
 class RencontreController extends Controller
 {
-    /*
-    * @Route("/rencontre", name="rencontre_index")
-
+    /**
+    * @Route("/", name="rencontre_index")
+    */
    public function indexAction() {
 
      $repository = $this->getDoctrine()->getRepository("AppBundle:Rencontre");
@@ -24,6 +25,7 @@ class RencontreController extends Controller
 
    }
 
+   /*
    @Route("/rencontre", name="rencontre_index")
 
   public function indexAction() {
@@ -71,8 +73,16 @@ public function indexAction(Request $request, $nom) {
 
 /**
 * @Route("/rencontre/{id}", name="rencontre_modifier")
+* @Security("has_role('ROLE_SUPER_ADMIN')")
 */
 public function modifierAction(Request $request, $id) {
+
+  /* $this->denyAccessUnlessGranted('ROLE_SUPER_ADMIN'); */
+  /*
+  if (!$this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')) {
+      throw $this->createAccessDeniedException();
+  }
+  */
 
  $repository = $this->getDoctrine()->getRepository("AppBundle:Rencontre");
 

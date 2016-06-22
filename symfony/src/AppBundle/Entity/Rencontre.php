@@ -76,6 +76,13 @@ class Rencontre
     private $pronostics;
 
     /**
+     * @var $id
+     *
+     * @ORM\ManyToOne(targetEntity="User")
+     */
+    private $utilisateur;
+
+    /**
      * Get id
      *
      * @return integer

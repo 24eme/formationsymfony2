@@ -23,12 +23,15 @@ class PronosticController extends Controller
 */
 public function nouveauAction(Request $request, $rencontre) {
 
+ $user = $this->getUser();
+
  $em = $this->getDoctrine()->getManager();
 
  $pronostic = new Pronostic();
 
  $pronostic->setDate(new \DateTime());
  $pronostic->setRencontre($rencontre);
+ $pronostic->setUtilisateur($user);
 
  $form = $this->createForm(PronosticType::class, $pronostic);
 
@@ -56,10 +59,9 @@ public function listeAction(Request $request, $rencontre) {
 
  // $pronostics = $repository->findBy(array("rencontre" => $rencontre->getId()));
 
- $pronostics = $rencontre->getPronostics();
+  $pronostics = $rencontre->getPronostics();
 
   return $this->render("rencontre/pronostics.html.twig", array("pronostics" => $pronostics, "rencontre" => $rencontre));
 }
-
 
 }

@@ -16,13 +16,14 @@ class PronosticType extends AbstractType
     {
         $builder
             ->add('id')
-            ->add('utilisateur')
+//            ->add('utilisateur')
             ->add('date', 'date')
             ->add('scoreA')
             ->add('scoreB')
             ->add('nbCafe')
             ->add('rencontre')
         ;
+
     }
 
     /**

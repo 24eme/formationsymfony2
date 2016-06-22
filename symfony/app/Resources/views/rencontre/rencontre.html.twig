@@ -7,15 +7,7 @@
 {% endblock %}
 <table class='table'>
 <tbody>
-{% for rencontre in rencontresA %}
-  <tr>
-  <td>{{rencontre.date | date('d/m/Y')}}</td>
-  <td>{{rencontre.libelle}}</td>
-  <td>{{rencontre.equipeA}}</td>
-  <td>{{rencontre.equipeB}}</td>
-  </tr>
-{% endfor %}
-{% for rencontre in rencontresB %}
+{% for rencontre in rencontres %}
   <tr>
   <td>{{rencontre.date | date('d/m/Y')}}</td>
   <td>{{rencontre.libelle}}</td>
