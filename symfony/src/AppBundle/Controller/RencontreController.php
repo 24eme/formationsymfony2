@@ -47,19 +47,25 @@ class RencontreController extends Controller
       $form = $this->createForm(new RencontreType(), $rencontre);
       //  var_dump($_POST);
       $form->handleRequest($request);
-
+      //$this->denyAccessUnlessGranted('ROLE_ADMIN'); PLUS RAPIDE
+      if($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN'))
+      {
       if($form->isSubmitted() && $form->isValid())
 
-      {
+          {
 
-        $this->getDoctrine()->getManager()->flush();
-        return $this->RedirectToRoute('rencontre_modifier', array('id'=>$id));
-      }
+            $this->getDoctrine()->getManager()->flush();
+            return $this->RedirectToRoute('rencontre_modifier', array('id'=>$id));
+          }
 
-      return $this->render("rencontre/modifier.html.twig",
-          array('rencontre' => $rencontre,
-                'form' => $form->createView())
-          );
+          return $this->render("rencontre/modifier.html.twig",
+              array('rencontre' => $rencontre,
+                    'form' => $form->createView())
+              );
+            }
+        else {
+          throw new \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException();
+        }
     }
 
 
