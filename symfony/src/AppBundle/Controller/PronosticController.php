@@ -29,7 +29,11 @@ class PronosticController extends Controller
       $pronostic->setRencontre($rencontre);
       $pronostic->setUtilisateur($this->getUser());
 
-      $form = $this->createForm(PronosticType::class, $pronostic)
+      $isAdmin = $this->get('security.authorization_checker')
+                      ->isGranted('ROLE_SUPER_ADMIN');
+
+      $form = $this->createForm(PronosticType::class, $pronostic,
+                    array('utilisateur_editable' => $isAdmin))
                    ->add('submit', SubmitType::class);
 
       $form->handleRequest($request);

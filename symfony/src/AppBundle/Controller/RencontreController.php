@@ -39,7 +39,7 @@ class RencontreController extends Controller
     }
 
     /**
-    * @Route("/equipe/modifier/{id}", name="rencontre_modifier")
+    * @Route("/rencontre/modifier/{id}", name="rencontre_modifier")
     * @Security("has_role('ROLE_SUPER_ADMIN')")
     */
     public function modifierAction(Request $request, $id) {
