@@ -14,6 +14,8 @@ class Pronostic
 {
 
 
+
+
     /**
      *
      * @ORM\ManyToOne(targetEntity="Rencontre", inversedBy="pronostics")
@@ -30,9 +32,9 @@ class Pronostic
     private $id;
 
     /**
-     * @var string
+     * @var int
      *
-     * @ORM\Column(name="utilisateur", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="pronostics")
      */
     private $utilisateur;
 

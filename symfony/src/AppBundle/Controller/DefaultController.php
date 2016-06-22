@@ -13,10 +13,12 @@ class DefaultController extends Controller
 
     /**
     * @Route("/bonjour/{nom}", name="bonjour")
+    *
     */
     public function bonjourAction(Request $request, $nom) {
 
-      return $this->render("default/bonjour.html.twig", array("nom" => $nom));
+      $user = $this->get('security.token_storage')->getToken()->getUser();
+      return $this->render("default/bonjour.html.twig", array("nom" => $nom,"user"=>$user));
     }
 
 }

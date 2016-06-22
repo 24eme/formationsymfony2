@@ -21,7 +21,6 @@ class RencontreController extends Controller
       $repository = $this->getDoctrine()->getRepository("AppBundle:Rencontre");
 
       $rencontres = $repository->findBy(array(), array('date' => 'DESC'));
-
       return $this->render("rencontre/index.html.twig", array('rencontres' => $rencontres));
     }
 

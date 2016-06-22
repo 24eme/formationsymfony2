@@ -7,7 +7,7 @@
         <a href="{{ path('rencontre_modifier', {'id': item.id }) }}">{{ item.libelle }} ,{{ item.id }} </a>
           </td>
             <td>
-        <a class="btn btn-default" href="{{ path('pronostic_nouveau', {'idRencontre': item.id }) }}">Pari</a>
+        <a class="btn btn-default" href="{{ path('pronostic_nouveau', {'idRencontre': item.id}) }}">Pari</a>
         </td>
         <td>
         <a class="btn btn-info" href="{{ path('pronostic_liste', {'idRencontre': item.id }) }}">Pronostics</a>

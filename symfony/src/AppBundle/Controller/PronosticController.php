@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Form\PronosticType;
 use AppBundle\Entity\Pronostic;
 use AppBundle\Entity\Rencontre;
+use AppBundle\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class PronosticController extends Controller
@@ -24,6 +25,9 @@ class PronosticController extends Controller
       $pronostic = new Pronostic();
       $pronostic->setRencontre($rencontre);
       $pronostic->setDate(new \DateTime);
+      $user = $this->get('security.token_storage')->getToken()->getUser();
+
+      $pronostic->setUtilisateur($user);
 
       $form = $this->createForm(PronosticType::class,$pronostic);
       $form->handleRequest($request);
