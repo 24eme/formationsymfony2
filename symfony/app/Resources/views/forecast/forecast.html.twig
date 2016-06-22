@@ -10,7 +10,8 @@
         {{app.request.get('idRencontre')}}
     </h2>
 
-    <p>Date de la rencontre : {{rencontre.date | date("d/m/Y")}}</p>
+    <p>Date de la rencontre :
+        {{rencontre.date | date("d/m/Y")}}</p>
 
     <br/>
 
@@ -40,6 +41,15 @@
 
         <br/>
 
+        {% if form.utilisateur is defined %}
+            {{form_label(form.utilisateur)}}
+            {{form_widget(form.utilisateur)}}
+            {{form_errors(form.utilisateur)}}
+
+            <br/>
+
+        {% endif %}
+
         <input type=submit class="btn btn-primary" value="Pronostiquer"/>
 
         <br/>
@@ -51,8 +61,8 @@
         {{form_end(form)}}
     {% endif %}
 
-    {% if  not (rencontre.date > date()) %}
-      Vous ne pouvez pas faire de pronostic pour ce match car il a déjà eu lieu !
+    {% if not(rencontre.date > date()) %}
+        Vous ne pouvez pas faire de pronostic pour ce match car il a déjà eu lieu !
     {% endif %}
     <br/>
     <a href="{{ path('match_route') }}">Retour à la page de tous les matchs</a>

@@ -26,7 +26,9 @@ class ForecastController extends Controller
         $user = $this->getUser();
         $pronostic->setUtilisateur($user);
 
-        $form = $this->createForm(PronosticType::class, $pronostic);
+        $isAdmin = $this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN');
+
+        $form = $this->createForm(PronosticType::class, $pronostic, array('utilisateur_editable'=>$isAdmin));
         $form->handleRequest($request);
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -72,10 +74,26 @@ class ForecastController extends Controller
         ));
     }
 
+    /**
+     * @Route("/match/pronostic/tableau/whoisthebest", name="whoisthebest_route")
+     */
+    public function whoIsTheBestAction(Request $request){
+      $userRepo = $this->getRepositoryUser();
+      $users = $userRepo->findBy(array(), array("nbCafesGagnes"=>"ASC"));
+      return $this->render("forecast/whoIsTheBest.html.twig", array(
+
+      ));
+    }
+
 
     public function getRepositoryRencontre()
     {
         return $this->getDoctrine()->getRepository("AppBundle:Rencontre");
+    }
+
+    public function getRepositoryUser()
+    {
+        return $this->getDoctrine()->getRepository("AppBundle:User");
     }
 
     public function getRepository()

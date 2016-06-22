@@ -79,7 +79,7 @@ class Pronostic
         return $this->id;
     }
 
-    
+
     /**
      * Set scoreA
      *
@@ -211,10 +211,30 @@ class Pronostic
     /**
      * Get utilisateur
      *
-     * @return \AppBundle\Entity\User 
+     * @return \AppBundle\Entity\User
      */
     public function getUtilisateur()
     {
         return $this->utilisateur;
+    }
+
+    /**
+     * Est-ce un pari gagné ?
+     *
+     * @return boolean
+     */
+    public function isGagne()
+    {
+        $answer = false;
+
+        $rencontre = $this->getRencontre();
+        $vraiScoreA = $rencontre->getScoreA();
+        $vraiScoreB = $rencontre->getScoreB();
+
+        if($this->scoreA == $vraiScoreA && $this->scoreB == $vraiScoreB){
+          $answer = true;
+        }
+
+        return $answer;
     }
 }
