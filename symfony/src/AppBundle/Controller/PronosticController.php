@@ -33,7 +33,12 @@ public function nouveauAction(Request $request, $rencontre) {
  $pronostic->setRencontre($rencontre);
  $pronostic->setUtilisateur($user);
 
- $form = $this->createForm(PronosticType::class, $pronostic);
+ $isAdmin = $this->get('security.authorization_checker')
+    ->isGranted('ROLE_SUPER_USER');
+
+ $form = $this->createForm(PronosticType::class, $pronostic,
+            array('utilisateur_editable' => $isAdmin))
+            ->add('submit', SubmitType::class);
 
  $form->handleRequest($request);
 

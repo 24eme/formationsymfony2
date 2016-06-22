@@ -277,4 +277,28 @@ class Rencontre
     {
         return $this->pronostics;
     }
+
+    /**
+     * Set utilisateur
+     *
+     * @param \AppBundle\Entity\User $utilisateur
+     *
+     * @return Rencontre
+     */
+    public function setUtilisateur(\AppBundle\Entity\User $utilisateur = null)
+    {
+        $this->utilisateur = $utilisateur;
+
+        return $this;
+    }
+
+    /**
+     * Get utilisateur
+     *
+     * @return \AppBundle\Entity\User
+     */
+    public function getUtilisateur()
+    {
+        return $this->utilisateur;
+    }
 }

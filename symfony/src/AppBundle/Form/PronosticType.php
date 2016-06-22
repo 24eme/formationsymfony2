@@ -23,6 +23,9 @@ class PronosticType extends AbstractType
             ->add('nbCafe')
             ->add('rencontre')
         ;
+        if ($options['utilisateur_editable']) {
+          $builder->add('utilisateur');
+        }
 
     }
 
@@ -32,7 +35,8 @@ class PronosticType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Pronostic'
+            'data_class' => 'AppBundle\Entity\Pronostic',
+            'utilisateur_editable' => false,
         ));
     }
 }
