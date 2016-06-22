@@ -7,11 +7,24 @@ use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
  * @ORM\Table(name="fos_user")
+  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
  */
 class User extends BaseUser
 {
+
+  /**
+   * @var int
+   *
+     * @ORM\Column(name="nbCafe", type="integer")
+   */
+  private $nbCafe;
+  /**
+   * @var int
+   *
+     * @ORM\Column(name="$nbPariGagne", type="integer")
+   */
+  private $nbPariGagne;
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -63,5 +76,53 @@ class User extends BaseUser
     public function getPronostics()
     {
         return $this->pronostics;
+    }
+
+    /**
+     * Set nbCafe
+     *
+     * @param integer $nbCafe
+     *
+     * @return User
+     */
+    public function setNbCafe($nbCafe)
+    {
+        $this->nbCafe = $nbCafe;
+
+        return $this;
+    }
+
+    /**
+     * Get nbCafe
+     *
+     * @return integer
+     */
+    public function getNbCafe()
+    {
+        return $this->nbCafe;
+    }
+
+    /**
+     * Set nbPariGagne
+     *
+     * @param integer $nbPariGagne
+     *
+     * @return User
+     */
+    public function setNbPariGagne($nbPariGagne)
+    {
+        $this->nbPariGagne = $nbPariGagne;
+
+        return $this;
+    }
+
+    /**
+     * Get nbPariGagne
+     *
+     * @return integer
+     */
+    public function getNbPariGagne()
+    {
+        return $this->nbPariGagne;
     }
 }

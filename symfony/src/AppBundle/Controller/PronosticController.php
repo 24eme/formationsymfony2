@@ -29,9 +29,9 @@ class PronosticController extends Controller
 
       $pronostic->setUtilisateur($user);
 
-      $form = $this->createForm(PronosticType::class,$pronostic);
+      $isAdmin = $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN');
+      $form = $this->createForm(PronosticType::class,$pronostic,array('utilisateur_editable'=>$isAdmin));
       $form->handleRequest($request);
-
       if($form->isSubmitted() && $form->isValid())
         {
           $this->getDoctrine()->getManager()->persist($pronostic);
@@ -41,6 +41,7 @@ class PronosticController extends Controller
         return $this->render('pronostic/nouveau.html.twig', array(
           'form' => $form->createView(),
           'rencontre' => $rencontre
+          ,array('utilisateur_editable'=>$isAdmin)
         ));
 
       }

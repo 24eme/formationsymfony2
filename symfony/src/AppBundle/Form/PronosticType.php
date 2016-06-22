@@ -17,10 +17,16 @@ class PronosticType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+
         $builder
             ->add('scoreA')
             ->add('scoreB')
             ->add('nbCafe');
+        if($options['utilisateur_editable'])
+        {
+
+          $builder->add('utilisateur',null);
+        }
     }
 
     /**
@@ -29,7 +35,8 @@ class PronosticType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Pronostic'
+            'data_class' => 'AppBundle\Entity\Pronostic',
+            'utilisateur_editable'  => false
         ));
     }
 

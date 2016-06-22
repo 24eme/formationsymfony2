@@ -9,6 +9,9 @@
 {{ form_row(form.nbCafe) }}
 {{ form_row(form.scoreA) }}
 {{ form_row(form.scoreB) }}
+{% if form.utilisateur is defined %}
+{{ form_row(form.utilisateur) }}
+{% endif %}
 
 <button type="submit" class="btn btn-default">Valider</button>
 
