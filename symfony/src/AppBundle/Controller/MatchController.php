@@ -5,10 +5,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Form\RencontreType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 class MatchController extends Controller
 {
     /**
-     * @Route("/match", name="match_route")
+     * @Route("/", name="match_route")
      */
     public function matchAction(Request $request)
     {
@@ -37,9 +38,16 @@ class MatchController extends Controller
     }
     /**
      * @Route("/match/modifier/{id}", name="modifier_route")
+     * @Security("has_role('ROLE_SUPER_ADMIN')")
      */
     public function modifierAction(Request $request, $id)
     {
+        /*if (!$this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')) {
+            throw $this->createAccessDeniedException();
+        } EQUIVALENT = LA LIGNE EN-DESSOUS*/
+
+        //$this->denyAccessUnlessGranted('ROLE_SUPER_ADMIN');
+
         $repository = $this->getRepository();
         $entry      = $repository->find($id);
         $form       = $this->createForm(RencontreType::class, $entry);

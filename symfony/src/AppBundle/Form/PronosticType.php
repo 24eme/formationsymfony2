@@ -16,7 +16,7 @@ class PronosticType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('utilisateur')
+            //->add('utilisateur')
             ->add('scoreA', TextType::class)
             ->add('scoreB', TextType::class)
             //->add('date', 'datetime')

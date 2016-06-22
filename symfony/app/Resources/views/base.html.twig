@@ -11,6 +11,7 @@
     </head>
     <body>
         <div class="container">
+          {{app.user.username}} <a href="{{ path('fos_user_security_logout')}}">Se déconnecter</a>
             {% block body %}{% endblock %}
         </div>
         {% block javascripts %}{% endblock %}

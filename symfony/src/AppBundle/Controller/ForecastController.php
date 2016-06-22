@@ -21,6 +21,11 @@ class ForecastController extends Controller
         $pronostic  = new Pronostic();
         $pronostic->setRencontre($rencontre);
         $pronostic->setDate(new \DateTime());
+
+        // Il faut setter le champ utilisateur
+        $user = $this->getUser();
+        $pronostic->setUtilisateur($user);
+
         $form = $this->createForm(PronosticType::class, $pronostic);
         $form->handleRequest($request);
         if ($form->isValid()) {
