@@ -27,6 +27,7 @@ class PronosticController extends Controller
       $pronostic = new Pronostic();
       $pronostic->setDate(new \DateTime());
       $pronostic->setRencontre($rencontre);
+      $pronostic->setUtilisateur($this->getUser());
 
       $form = $this->createForm(PronosticType::class, $pronostic)
                    ->add('submit', SubmitType::class);

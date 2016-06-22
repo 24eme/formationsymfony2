@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -39,8 +40,15 @@ class RencontreController extends Controller
 
     /**
     * @Route("/equipe/modifier/{id}", name="rencontre_modifier")
+    * @Security("has_role('ROLE_SUPER_ADMIN')")
     */
     public function modifierAction(Request $request, $id) {
+      /*if (!$this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')) {
+        throw $this->createAccessDeniedException();
+      }*/
+
+      //$this->denyAccessUnlessGranted('ROLE_SUPER_ADMIN');
+
       $repository = $this->getRepository();
 
       $rencontre = $repository->find($id);

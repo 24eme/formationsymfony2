@@ -11,6 +11,11 @@
     </head>
     <body>
         <div class="container">
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            Bonjour {{ app.user.username }} !
+            <a href="{{ path('fos_user_security_logout') }}">Se déconnecter</a>
+            {% endif %}
+
             {% block body %}{% endblock %}
         </div>
         {% block javascripts %}{% endblock %}

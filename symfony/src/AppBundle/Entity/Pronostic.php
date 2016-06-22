@@ -22,10 +22,10 @@ class Pronostic
     private $id;
 
     /**
-     * @var string
+     * @var User
      *
-     * @ORM\Column(name="utilisateur", type="string", length=255)
-     */
+     * @ORM\ManyToOne(targetEntity="User")
+    */
     private $utilisateur;
 
     /**
@@ -71,29 +71,6 @@ class Pronostic
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set utilisateur
-     *
-     * @param string $utilisateur
-     * @return Pronostic
-     */
-    public function setUtilisateur($utilisateur)
-    {
-        $this->utilisateur = $utilisateur;
-
-        return $this;
-    }
-
-    /**
-     * Get utilisateur
-     *
-     * @return string
-     */
-    public function getUtilisateur()
-    {
-        return $this->utilisateur;
     }
 
     /**
@@ -209,5 +186,29 @@ class Pronostic
     public function getRencontre()
     {
         return $this->rencontre;
+    }
+
+    /**
+     * Set utilisateur
+     *
+     * @param \AppBundle\Entity\User $utilisateur
+     *
+     * @return Pronostic
+     */
+    public function setUtilisateur(\AppBundle\Entity\User $utilisateur = null)
+    {
+        $this->utilisateur = $utilisateur;
+
+        return $this;
+    }
+
+    /**
+     * Get utilisateur
+     *
+     * @return \AppBundle\Entity\User
+     */
+    public function getUtilisateur()
+    {
+        return $this->utilisateur;
     }
 }
