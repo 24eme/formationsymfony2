@@ -20,7 +20,7 @@ class RencontreType extends AbstractType
             ->add('libelle')
             ->add('equipeA')
             ->add('equipeB')
-            ->add('scoreA', TextType::class)
+            ->add('scoreA', TextType::class, array('constraints' => array(new \Symfony\Component\Validator\Constraints\NotBlank())))
             ->add('scoreB')
         ;
     }

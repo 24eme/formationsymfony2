@@ -58,10 +58,6 @@ class Rencontre
      *      minMessage = "You must be at least {{ limit }}cm tall to enter",
      *      maxMessage = "You cannot be taller than {{ limit }}cm to enter"
      * )
-     * @Assert\Type(
-     *     type="numeric",
-     *     message="La valeur {{ value }} is not a valid {{ type }}."
-     * )
      * @ORM\Column(name="scoreA", nullable=true, type="integer")
      */
     private $scoreA;
@@ -266,7 +262,7 @@ class Rencontre
     /**
      * Get pronostics
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getPronostics()
     {
