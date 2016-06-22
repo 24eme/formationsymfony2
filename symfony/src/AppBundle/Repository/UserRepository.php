@@ -15,7 +15,10 @@ class UserRepository extends EntityRepository
   public function getNbCafeGroupByUser() {
 
       $query = $this->getEntityManager()->createQuery("
-        SELECT u.username ,u.id as id,count(p.nbCafe) as nbGagne, SUM(p.nbCafe) as nbCafe
+        SELECT u.username,
+          u.id AS id,
+          COUNT(p.nbCafe) AS nbGagne,
+          SUM(p.nbCafe) AS nbCafe
         FROM \AppBundle\Entity\Pronostic p
         JOIN p.rencontre r
         JOIN p.utilisateur u

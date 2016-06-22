@@ -23,23 +23,29 @@ class UpdateCafeCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $argument = $input->getArgument('argument');
-        $doctrine = $this->getContainer()->get('doctrine');
-        $repository = $doctrine->getRepository("AppBundle:User");
-        $nbCafe = $repository->getNbCafeGroupByUser();
-        $res="";
-        foreach ($nbCafe as $user) {
-          $objUser=$repository->find(  array('id' => $user['id']));
-          $objUser->setNbCafe($user['nbCafe']);
-          $objUser->setNbPariGagne($user['nbGagne']);
-          $doctrine->getManager()->persist($objUser);
-          $doctrine->getManager()->flush();
-          $res .= $user['username'] . ' a gagné ' . $objUser->getNbCafe(). ' cafés sur ' . $objUser->getNbPariGagne()." pari gagné!\n";
-        }
 
         if ($input->getOption('option')) {
             // ...
         }
 
+        $doctrine = $this->getContainer()->get('doctrine');
+        $repository = $doctrine->getRepository("AppBundle:User");
+        $nbCafe = $repository->getNbCafeGroupByUser();
+
+        $res="";
+
+        foreach ($nbCafe as $user) {
+          $objUser=$repository->find(array('id' => $user['id']));
+
+          $objUser->setNbCafe($user['nbCafe']);
+          $objUser->setNbPariGagne($user['nbGagne']);
+
+          $res .= $user['username'] . ' <info>a gagné</info> '
+            . $objUser->getNbCafe(). ' <fg=yellow>cafés sur </fg=yellow>'
+            . $objUser->getNbPariGagne()." <error>pari gagné!</error>\n";
+        }
+
+        $doctrine->getManager()->flush();
         $output->writeln($res);
     }
 
