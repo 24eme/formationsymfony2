@@ -21,8 +21,7 @@ class PronosticType extends AbstractType
             ->add('scoreA')
             ->add('scoreB')
             ->add('nbCafe')
-            ->add('utilisateur')
-        ;
+            ->add('utilisateur');
     }
 
     /**

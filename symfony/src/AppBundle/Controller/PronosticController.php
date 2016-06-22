@@ -19,6 +19,7 @@ class PronosticController extends Controller
      */
     public function nouveauAction(Request $request, Rencontre $rencontre)
     {
+
       $repository = $this->getRepository();
       $pronostic = new Pronostic();
       $pronostic->setRencontre($rencontre);
@@ -58,7 +59,7 @@ class PronosticController extends Controller
       /**
        * @Route("Pronostic/encours", name="pronostic_encours")
        */
-      public function nonTermineAction(Request $request){
+      public function nonTermineAction(){
 
         $repository = $this->getDoctrine()->getRepository("AppBundle:Pronostic");
         $pronostics = $repository->getPronosticsMatchNonTermines();

@@ -62,11 +62,6 @@ class Pronostic
      * @ORM\Column(name="nbCafe", nullable=true, type="integer")
      */
     private $nbCafe;
-
-
-
-
-
     /**
      * Get id
      *
