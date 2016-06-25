@@ -1,4 +1,4 @@
-Pour déployer aurouze via ansible :
+Pour déployer le projet via ansible :
 
  - ajouter un groupe giildaservers dans /etc/ansible/hosts et y mettre les machines (et leurs parametres)
  - copier install.yml.example en install.yml
