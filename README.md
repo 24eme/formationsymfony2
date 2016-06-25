@@ -6,7 +6,7 @@ Récupérer le projet via GIT
 
     git clone https://github.com/24eme/formationsymfony2.git
 
-Ouvrir la page formationsymfony2/presentation/index.html
+Ouvrir dans son navigateur la page formationsymfony2/presentation/index.html
 
 ## Déployer le projet sur les postes via Ansible
 
