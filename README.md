@@ -1,4 +1,4 @@
-# Formation symfony 2
+# Formation Symfony 2
 
 ## Présentation de la partie théorique
 
@@ -6,13 +6,15 @@ Récupérer le projet via GIT
 
     git clone https://github.com/24eme/formationsymfony2.git
 
-Ouvrir dans son navigateur la page formationsymfony2/presentation/index.html
+Ouvrir dans son navigateur la page          
+
+    formationsymfony2/presentation/index.html
 
 ## Déployer le projet sur les postes via Ansible
 
 [Déployer via ansible](ansible)
 
-## Installation manuel du projet/tp symfony
+## Installation manuel du projet/TP symfony
 
 Récupérer le projet via GIT
 
@@ -45,3 +47,13 @@ Pour une utilisation avec Apache configurer les droits d'accès aux dossiers cac
     HTTPDUSER=`ps axo user,comm | grep -E '[a]pache|[h]ttpd|[_]www|[w]ww-data|[n]ginx' | grep -v root | head -1 | cut -d\  -f1`
     sudo setfacl -R -m u:"$HTTPDUSER":rwX -m u:`whoami`:rwX var
     sudo setfacl -dR -m u:"$HTTPDUSER":rwX -m u:`whoami`:rwX var
+
+## Projets / TP terminées :
+
+### Session Juin 2016
+
+- Formateur (Vincent) : https://github.com/24eme/formationsymfony2/tree/formateur
+- Didier : https://github.com/24eme/formationsymfony2/tree/201606_didier
+- Loic : https://github.com/24eme/formationsymfony2/tree/201606_loic
+- Mohan : https://github.com/24eme/formationsymfony2/tree/201606_mohan
+- Sylvia : https://github.com/24eme/formationsymfony2/tree/201606_sylvia
